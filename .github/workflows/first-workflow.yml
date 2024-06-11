@@ -1,4 +1,4 @@
-name: Primer Flujo de Trabajo
+name: Primer Flujo de Trabajo 2
 
 on:
   workflow_dispatch:

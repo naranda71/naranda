@@ -2,27 +2,29 @@ name: Primer Flujo de Trabajo
 
 on:
   workflow_dispatch:
+  issues:
+    types: [created]
 
 jobs:
+  # Primer trabajo con dos pasos
   job1:
     runs-on: ubuntu-latest
     steps:
       - name: Paso 1
-        run: echo "step1"
+        run: echo "Ejecutando step1"
 
       - name: Paso 2
-        run: echo "step2"
+        run: echo "Ejecutando step2"
+
+  # Segundo trabajo que se ejecuta después de completar el primer trabajo.
   job2:
-     runs-on: ubuntu-latest
-     steps:
-      - name: Cowsays
-      # You may pin to the exact commit or the version.
-      # uses: mscoutermarsh/cowsays-action@822c8424f7ebc1f4c8b86b0bcb11e4051b7f42e2
-      uses: mscoutermarsh/cowsays-action@v1
-      with:
-      # What does the cow say?
-      text: # optional, default is Ship it!!!!!
-      # Color of your cow
-      color: # optional, default is white
-          
-    
+    needs: job1   
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cowsay Action
+        uses: mscoutermarsh/cowsays-action@master
+        with:
+          text: 'Hola, ship ship ship!'
+          color: 'green'
+
+ 
